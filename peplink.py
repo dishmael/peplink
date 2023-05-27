@@ -88,8 +88,9 @@ class Pepwave:
         self.session   = requests.Session()
         self.connected = False
         self.headers   = {'Accept': 'application/json'}
+        self.json      = {}
 
-    def doRequest(self, pr: PepwaveRequest):
+    def doRequest(self, pr: PepwaveRequest) -> None:
         url = f'{self.host}{pr.endpoint}'
         resp = None
 
@@ -113,5 +114,5 @@ class Pepwave:
         if isinstance(pr, LogoutRequest):
             self.connected = False
 
-        return json.dumps(resp.json())
+        self.json = json.dumps(resp.json())
 
